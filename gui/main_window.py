@@ -1,3 +1,15 @@
+import sys
+from pathlib import Path
+
+def resource_path(relative_path):
+
+    if hasattr(sys, "_MEIPASS"):
+        return str(
+            Path(sys._MEIPASS) / relative_path
+        )
+
+    return relative_path
+
 from PySide6.QtWidgets import (
     QWidget,
     QLabel,
@@ -39,7 +51,7 @@ class MainWindow(QWidget):
         )
 
         self.setWindowIcon(
-            QIcon("assets/logo.ico")
+            QIcon(resource_path("assets/logo.ico"))
         )
 
         self.resize(

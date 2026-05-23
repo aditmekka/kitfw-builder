@@ -32,7 +32,7 @@ jobs:
 
     - name: Build EXE
 
-      run: pyinstaller --onefile --windowed --icon assets/logo.ico --name KitFW_Builder main.py
+      run: pyinstaller --onefile --windowed --icon assets/logo.ico --add-data "assets/logo.ico;assets" --name KitFW_Builder main.py
 
     - name: Create Release
 
