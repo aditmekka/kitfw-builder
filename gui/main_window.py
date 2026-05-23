@@ -7,8 +7,10 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QHBoxLayout,
     QComboBox,
-    QMessageBox
+    QMessageBox,
 )
+
+from PySide6.QtGui import QIcon
 
 import builder.esp32 as esp32
 import builder.esp8266 as esp8266
@@ -34,6 +36,10 @@ class MainWindow(QWidget):
 
         self.setWindowTitle(
             "KitFW Builder"
+        )
+
+        self.setWindowIcon(
+            QIcon("assets/logo.ico")
         )
 
         self.resize(
