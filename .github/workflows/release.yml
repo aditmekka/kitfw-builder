@@ -32,12 +32,7 @@ jobs:
 
     - name: Build EXE
 
-      run: |
-
-        pyinstaller ^
-          --onefile ^
-          --windowed ^
-          main.py
+      run: pyinstaller --onefile --windowed --name KitFW_Builder main.py
 
     - name: Create Release
 
@@ -46,7 +41,7 @@ jobs:
       with:
 
         files: |
-          dist/main.exe
+          dist/KitFW_Builder.exe
 
       env:
 
