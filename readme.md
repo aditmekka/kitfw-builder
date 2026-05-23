@@ -1,0 +1,1 @@
+Monsterchip proprietary .kitfw builder for proprietary flasher.
