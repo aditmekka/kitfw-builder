@@ -5,6 +5,9 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
 
   build:
@@ -13,36 +16,32 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-      with:
-        python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
 
-    - name: Install Dependencies
+      - name: Build EXE
+        run: |
+          pyinstaller --onefile --windowed --icon assets/logo.ico `
+          --add-data "assets;assets" `
+          --name KitFW_Builder `
+          main.py
 
-      run: |
+      - name: Rename Artifact
+        run: |
+          move dist\KitFW_Builder.exe dist\KitFW_Builder_${{ github.ref_name }}.exe
 
-        python -m pip install --upgrade pip
-
-        pip install -r requirements.txt
-
-        pip install pyinstaller
-
-    - name: Build EXE
-
-      run: pyinstaller --onefile --windowed --icon assets/logo.ico --add-data "assets/logo.ico;assets" --name KitFW_Builder main.py
-
-    - name: Create Release
-
-      uses: softprops/action-gh-release@v2
-
-      with:
-
-        files: |
-          dist/KitFW_Builder.exe
-
-      env:
-
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/KitFW_Builder_${{ github.ref_name }}.exe

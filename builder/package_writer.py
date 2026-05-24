@@ -1,7 +1,6 @@
 import json
 import zipfile
 
-
 def write_package(
         output_file,
         manifest,
